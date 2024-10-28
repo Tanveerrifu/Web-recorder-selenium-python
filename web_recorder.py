@@ -165,7 +165,9 @@
 #     recording_time = 10  # Set recording time per page in seconds
 #     automate_and_record_all_pages(website_url, recording_time)
 
+# //working code
 
+import os
 import time
 import cv2
 import pyautogui
@@ -216,6 +218,10 @@ def get_all_links(driver, base_url):
 
 # Main function to automate website navigation and record
 def automate_and_record_all_pages(url, recording_duration=5):
+    # Ensure the 'video' folder exists
+    if not os.path.exists("video"):
+        os.makedirs("video")
+    
     driver = initialize_driver()
     
     try:
@@ -236,7 +242,7 @@ def automate_and_record_all_pages(url, recording_duration=5):
                 time.sleep(3)  # Wait for page to load
                 
                 # Record each page visit with full-page scroll capture
-                filename = f"recording_{link.replace('/', '_').replace(':', '')}.avi"
+                filename = f"video/recording_{link.replace('/', '_').replace(':', '')}.avi"
                 out = start_recording(filename)
                 capture_full_page(driver, out, scroll_height=800, wait_time=1)
                 out.release()  # Stop recording for this page
@@ -249,3 +255,7 @@ if __name__ == "__main__":
     website_url = "https://lipsumhub.com"  # Target website
     recording_time = 20  # Set recording time per page in seconds
     automate_and_record_all_pages(website_url, recording_time)
+
+
+
+
